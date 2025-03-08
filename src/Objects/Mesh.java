@@ -1,6 +1,5 @@
 package Objects;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -8,6 +7,11 @@ import java.util.Scanner;
 
 public abstract class Mesh {
     public Triangle[] mesh;
+
+    public Mesh() {
+        readData("/src/Resources/Mesh/" + this.getClass().getSimpleName() + ".txt");
+        printVectors();
+    }
 
     public void readData(String path) {
         ArrayList<Triangle> meshArray = new ArrayList<>();
