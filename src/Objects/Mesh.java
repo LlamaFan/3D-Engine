@@ -9,11 +9,11 @@ public abstract class Mesh {
     public Triangle[] mesh;
 
     public Mesh() {
-        readData("/src/Resources/Mesh/" + this.getClass().getSimpleName() + ".txt");
-        printVectors();
+        readData("/src/Resources/Mesh/" + this.getClass().getSimpleName() + ".txt", 300);
+        //printVectors();
     }
 
-    public void readData(String path) {
+    public void readData(String path, int scale) {
         ArrayList<Triangle> meshArray = new ArrayList<>();
 
         try {
@@ -30,7 +30,8 @@ public abstract class Mesh {
                 for (int i = 0; i < 3; i++) {
                     String[] cords = vectors[i].split(" ");
 
-                    Vector v = new Vector(Integer.valueOf(cords[0]), Integer.valueOf(cords[1]), Integer.valueOf(cords[2]));
+                    Vector v = new Vector(
+                        Integer.valueOf(cords[0]) * scale, Integer.valueOf(cords[1]) * scale, Integer.valueOf(cords[2]) * scale);
                     vs[i] = v;
                 }
 
@@ -49,7 +50,7 @@ public abstract class Mesh {
         for (int i = 0; i < mesh.length; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.println(
-                        "XYZ: " + mesh[i].vectors[j].x + " " + mesh[i].vectors[j].y + " " + mesh[i].vectors[j].z);
+                        "XYZ: " + mesh[i].vectors[j].vec[0] + " " + mesh[i].vectors[j].vec[1] + " " + mesh[i].vectors[j].vec[2]);
             }
         }
     }
