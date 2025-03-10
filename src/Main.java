@@ -1,17 +1,17 @@
 import GUI.RenderPanel;
 import GUI.Window;
-import Math.CalcView;
 
 public class Main {
     public static RenderPanel rp;
-    public static CalcView cw;
+    public static Run run;
 
     public static void main(String[] args) {
+        // Sets the GUI
         rp = new RenderPanel();
-        cw = new CalcView(rp);
-
         new Window(rp);
 
-        cw.start();
+        // This has all the logic of the program, because I don't like to code in the main class
+        run = new Run(rp);
+        run.start();
     }
 }

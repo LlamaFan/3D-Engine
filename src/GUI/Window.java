@@ -9,6 +9,11 @@ public class Window extends JFrame {
         this.rp = rp;
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setTitle("Simple-3D-Engine");
+
+        ImageIcon icon = new ImageIcon("src/Resources/Images/Icon.png");
+        setIconImage(icon.getImage());
 
         add(rp);
         pack();

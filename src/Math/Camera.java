@@ -7,32 +7,40 @@ public class Camera {
 
     public Vector posCam;
 
+    // Screen width and height, used for the ratio
     public int sWidth = 690;
     public int sHeight = 690;
 
     public float r = sWidth / sHeight; // = r
 
+    // Some settings of the camera
     public float dNear = 0.01f;
     public float dFar = 1000;
     public float fov = 90;
-    public float fovRad = (float) (1 / Math.tan(fov * 0.5 / 180 * Math.PI));
 
     public Camera() {
+        // Sets the position of the camera in space
+        // The starting object should be in the middle, so everything is moved by half the screen
+        // The middle of the screen marks the origin (0 | 0)
         posCam = new Vector(sWidth / 2, sHeight / 2, 0);
 
         setProjection();
     }
 
+    // This a perspective projection matrix, which is used to simulate the view of a camera
+    // Some things here are wrong and I still need to correct them
     public void setProjection() {
-        projMatrix = new float[4][4];
+        float s = (float) (1 / Math.tan((fov / 2) * (Math.PI / 180)));
 
-        projMatrix[0][0] = (float) (1 / (r * Math.tan(fov / 2)));
-        projMatrix[1][1] = (float) (1 / Math.tan(fov / 2));
-        projMatrix[2][2] = dFar / (dFar - dNear);
-        projMatrix[2][3] = -(dFar * dNear) / (dFar - dNear);
-        projMatrix[3][2] = 1;
+        projMatrix = new float[][] {
+                {s, 0, 0, 0},
+                {0, s, 0, 0},
+                {0, 0, - (dFar / (dFar - dNear)), -1},
+                {0, 0, - ((dFar * dNear) / (dFar - dNear)), 0}
+        };
     }
 
+    // This method is used to update the meshes and their view relative to the camera
     public Vector mProjToVec(Vector i, float[][] m) {
         Vector v = new Vector(0, 0,0);
 
@@ -45,14 +53,6 @@ public class Camera {
             v.vec[1] /= w;
             v.vec[2] /= w;
         }
-
-        return v;
-    }
-
-    public Vector moveVecByVec(Vector or, Vector mul) {
-        Vector v = new Vector(0, 0, 0);
-
-        for (int i = 0; i < or.vec.length; i++) v.vec[i] = or.vec[i] + mul.vec[i];
 
         return v;
     }
