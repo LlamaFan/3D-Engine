@@ -2,6 +2,8 @@
 
 A 3D engine written in java that renders different shapes and objects
 
+  ![image](https://github.com/LlamaFan/3D-Engine/blob/master/src/Resources/Images/Example2.png)
+
 # About the program
 
 - I didn't create a compiled version yet, so you would either need to start the program in an IDE or compile it yourself
@@ -13,10 +15,6 @@ A 3D engine written in java that renders different shapes and objects
     - After the object has been created you need to add it to the mesh in the Run-class
     - More changes can be made by going through the project by yourself and understanding how it works
 - The project it still not finished though, as I need to update the camera a bit and also make it easier to acutall place objects in the world
-
-  ![image]()
-
-
 
 # License 
 
