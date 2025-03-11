@@ -4,15 +4,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Maths.CalcView;
 
 public abstract class Mesh {
     public Triangle[] mesh;
 
     // The constructor is basically the same for all the meshes
     // But in case you want to change something about a specific mesh there are still the classes for each one
-    public Mesh() {
+    public Mesh(Vector pos) {
         readData("/src/Resources/Mesh/" + this.getClass().getSimpleName() + ".txt", 100);
         //printVectors();
+        correctPosition(pos);
     }
 
     // This reads the data of a .txt and sets a mesh with all the triangles needed
@@ -48,6 +50,15 @@ public abstract class Mesh {
         }
 
         mesh = meshArray.toArray(new Triangle[meshArray.size()]);
+    }
+
+    // Sets the position of the object in the world
+    public void correctPosition(Vector v) {
+        if (v != null) {
+            for (int i = 0; i < mesh.length; i++)
+                for (int j = 0; j < mesh[i].vectors.length; j++)
+                    mesh[i].vectors[j] = CalcView.moveVecByVec(mesh[i].vectors[j], v);
+        }
     }
 
     // This is mostly for debugging in case I need to check the position
