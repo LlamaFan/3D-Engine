@@ -15,10 +15,10 @@ public class CalcView {
         }
 
         // This checks for the visible triangles
-        m = calcCrossProduct(m);
+        m = projectMesh(m, cam, time);
 
         // This updates the mesh according to our camera
-        return projectMesh(m, cam, time);
+        return calcCrossProduct(m);
     }
 
     // Updates all the meshes one by one
@@ -28,7 +28,7 @@ public class CalcView {
             // After the object is rotated it's also moved by the camera position
             // I want to add a perspective projection matrix as well, but it doesn't work quite well yet
             for (int j = 0; j < m[i].vectors.length; j++) {
-                //t.vectors[j] = cam.mProjToVec(t.vectors[j], cam.projMatrix);
+                //m[i].vectors[j] = cam.mProjToVec(m[i].vectors[j], cam.projMatrix);
                 m[i].vectors[j] = moveVecByVec(m[i].vectors[j], cam.posCam);
             }
         }
@@ -39,31 +39,23 @@ public class CalcView {
 
     // The cross product is used to determine if a mesh / triangle is visible
     // First calculation this and then only adding the visible sites is better
-    public static Triangle[] calcCrossProduct(Triangle[] meshes) {
+    public Triangle[] calcCrossProduct(Triangle[] meshes) {
         ArrayList<Triangle> nm = new ArrayList<>();
 
         for (int i = 0; i < meshes.length; i++) {
-            for (int j = 0; j < meshes[i].vectors.length; j++) {
-                Vector[] crp = new Vector[]{
-                        new Vector(0, 0, 0),
-                        new Vector(0, 0, 0),
-                        new Vector(0, 0, 0)
-                };
+            Vector[] t = meshes[i].vectors;
 
-                // I could have used another for loop, but the code would look weird then
-                for (int k = 0; k < 3; k++) crp[0].vec[k] = meshes[1].vectors[j].vec[k] - meshes[0].vectors[j].vec[k];
+            double ax = t[1].vec[0] - t[0].vec[0];
+            double ay = t[1].vec[1] - t[0].vec[1];
+            double bx = t[2].vec[0] - t[0].vec[0];
+            double by = t[2].vec[1] - t[0].vec[1];
 
-                for (int k = 0; k < 3; k++) crp[1].vec[k] = meshes[2].vectors[j].vec[k] - meshes[1].vectors[j].vec[k];
+            double crossProduct = ax * by - ay * bx;
 
-                crp[2].vec[0] = crp[0].vec[1] * crp[1].vec[2] - crp[0].vec[2] * crp[1].vec[1];
-                crp[2].vec[1] = crp[0].vec[2] * crp[1].vec[0] - crp[0].vec[0] * crp[1].vec[2];
-                crp[2].vec[2] = crp[0].vec[0] * crp[1].vec[1] - crp[0].vec[1] * crp[1].vec[0];
-
-                double len = Math.sqrt(
-                        Math.pow(crp[2].vec[0], 2) + Math.pow(crp[2].vec[1], 2) + Math.pow(crp[2].vec[2], 2));
-
-                //System.out.println(len);
-                if (crp[2].vec[2] / len > 0) nm.add(meshes[i]);
+            // If the cross product is less than 0, it means the triangle is visible
+            // Also because we already defined the position of the mesh in the 3D space we only need the 2D vectors here
+            if (crossProduct < 0) {
+                nm.add(new Triangle(t, meshes[i].color));
             }
         }
 

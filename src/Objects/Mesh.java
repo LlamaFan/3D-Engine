@@ -1,5 +1,6 @@
 package Objects;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -8,6 +9,21 @@ import Maths.CalcView;
 
 public abstract class Mesh {
     public Triangle[] mesh;
+    public Color[] colors = {
+            Color.BLUE,
+            Color.CYAN,
+            Color.DARK_GRAY,
+            Color.GRAY,
+            Color.GREEN,
+            Color.LIGHT_GRAY,
+            Color.MAGENTA,
+            Color.ORANGE,
+            Color.ORANGE,
+            Color.PINK,
+            Color.RED,
+            Color.WHITE,
+            Color.YELLOW
+    };
 
     // The constructor is basically the same for all the meshes
     // But in case you want to change something about a specific mesh there are still the classes for each one
@@ -41,7 +57,7 @@ public abstract class Mesh {
                     vs[i] = v;
                 }
 
-                meshArray.add(new Triangle(vs));
+                meshArray.add(new Triangle(vs, colors[Integer.valueOf(vectors[3])]));
             }
 
             sc.close();

@@ -34,7 +34,7 @@ public class Run implements Runnable {
     public void loadObjects() {
         meshes = new ArrayList<>();
 
-        //tetraeda = new Tetraeda(new Vector(0, 0, 0));
+        tetraeda = new Tetraeda(new Vector(0, 0, 0));
         // Adds a basic cube at the position (0; 0; 0)
         // I did something wrong, so it can't be moved in the z-axis yet
         cube = new Cube(new Vector(0, 0, 0));
@@ -53,11 +53,20 @@ public class Run implements Runnable {
 
         for (int i = 0; i < meshes.size(); i++) {
             for (int j = 0; j < meshes.get(i).mesh.length; j++) {
-                t.add(meshes.get(i).mesh[j]);
+                // Adding the triangle from the list directly doesn't really work, as the same object ist copied
+                // But I don't want to use the object itself, because I'm changing its coordinates etc.
+                Triangle nt = new Triangle(new Vector[3]);
+
+                for (int k = 0; k < 3; k++) {
+                    nt.vectors[k] = meshes.get(i).mesh[j].vectors[k];
+                    nt.color = meshes.get(i).mesh[j].color;
+                }
+                //CalcView.printVectors(new Triangle[]{nt});
+                t.add(nt);
             }
         }
 
-        CalcView.printVectors(t.toArray(new Triangle[t.size()]));
+        //CalcView.printVectors(t.toArray(new Triangle[t.size()]));
         return t.toArray(new Triangle[t.size()]);
     }
 
@@ -66,7 +75,7 @@ public class Run implements Runnable {
     public void run() {
         // The maximum amount of updates per second
         // It shouldn't be set over 1000, as I use currentTimeMillis() (More is not needed)
-        int tick = 10;
+        int tick = 50;
         double lastTick = System.currentTimeMillis();
 
         // Counts the current fps

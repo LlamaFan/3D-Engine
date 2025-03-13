@@ -22,7 +22,7 @@ public class Camera {
         // Sets the position of the camera in space
         // The starting object should be in the middle, so everything is moved by half the screen
         // The middle of the screen marks the origin (0 | 0)
-        posCam = new Vector(sWidth / 2, sHeight / 2, 0);
+        posCam = new Vector(sWidth / 2, sHeight / 2, -1000);
 
         setProjection();
     }
