@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
+import Maths.CalcView;
 import Objects.Triangle;
 
 public class RenderPanel extends JPanel {
@@ -47,6 +48,19 @@ public class RenderPanel extends JPanel {
 
     // Draws the meshes by a singular triangle each time
     public void drawTriangle(Graphics g, Triangle t) {
+        Polygon drawnTriangle = new Polygon();
+
+        drawnTriangle.addPoint((int) t.vectors[0].vec[0], (int) t.vectors[0].vec[1]);
+        drawnTriangle.addPoint((int) t.vectors[1].vec[0], (int) t.vectors[1].vec[1]);
+        drawnTriangle.addPoint((int) t.vectors[2].vec[0], (int) t.vectors[2].vec[1]);
+
+        g.setColor(t.color);
+        g.fillPolygon(drawnTriangle);
+
+
+        g.setColor(Color.white);
+
+        //CalcView.printVectors(new Triangle[]{t});
         g.drawLine((int) t.vectors[0].vec[0], (int) t.vectors[0].vec[1], (int) t.vectors[1].vec[0], (int) t.vectors[1].vec[1]);
         g.drawLine((int) t.vectors[1].vec[0], (int) t.vectors[1].vec[1], (int) t.vectors[2].vec[0], (int) t.vectors[2].vec[1]);
         g.drawLine((int) t.vectors[2].vec[0], (int) t.vectors[2].vec[1], (int) t.vectors[0].vec[0], (int) t.vectors[0].vec[1]);
