@@ -58,11 +58,11 @@ public class RenderPanel extends JPanel {
         g.fillPolygon(drawnTriangle);
 
 
-        /*g.setColor(Color.white);
+        g.setColor(Color.white);
 
         //CalcView.printVectors(new Triangle[]{t});
         g.drawLine((int) t.vectors[0].vec[0], (int) t.vectors[0].vec[1], (int) t.vectors[1].vec[0], (int) t.vectors[1].vec[1]);
         g.drawLine((int) t.vectors[1].vec[0], (int) t.vectors[1].vec[1], (int) t.vectors[2].vec[0], (int) t.vectors[2].vec[1]);
-        g.drawLine((int) t.vectors[2].vec[0], (int) t.vectors[2].vec[1], (int) t.vectors[0].vec[0], (int) t.vectors[0].vec[1]);*/
+        g.drawLine((int) t.vectors[2].vec[0], (int) t.vectors[2].vec[1], (int) t.vectors[0].vec[0], (int) t.vectors[0].vec[1]);
     }
 }

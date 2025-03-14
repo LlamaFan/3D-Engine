@@ -34,7 +34,7 @@ public class Run implements Runnable {
     public void loadObjects() {
         meshes = new ArrayList<>();
 
-        tetraeda = new Tetraeda(new Vector(0, 0, 0));
+        //tetraeda = new Tetraeda(new Vector(0, 0, 0));
         // Adds a basic cube at the position (0; 0; 0)
         // I did something wrong, so it can't be moved in the z-axis yet
         cube = new Cube(new Vector(0, 0, 0));
@@ -75,7 +75,7 @@ public class Run implements Runnable {
     public void run() {
         // The maximum amount of updates per second
         // It shouldn't be set over 1000, as I use currentTimeMillis() (More is not needed)
-        int tick = 50;
+        int tick = 5000;
         double lastTick = System.currentTimeMillis();
 
         // Counts the current fps

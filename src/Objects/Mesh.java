@@ -10,18 +10,17 @@ import Maths.CalcView;
 public abstract class Mesh {
     public Triangle[] mesh;
     public Color[] colors = {
-            Color.BLUE,
             Color.CYAN,
-            Color.DARK_GRAY,
-            Color.GRAY,
             Color.GREEN,
-            Color.LIGHT_GRAY,
-            Color.MAGENTA,
-            Color.ORANGE,
             Color.ORANGE,
             Color.PINK,
-            Color.RED,
+            Color.MAGENTA,
+            Color.BLUE,
             Color.WHITE,
+            Color.DARK_GRAY,
+            Color.GRAY,
+            Color.LIGHT_GRAY,
+            Color.RED,
             Color.YELLOW
     };
 
